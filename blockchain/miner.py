@@ -21,10 +21,13 @@ def proof_of_work(last_proof):
     """
 
     start = timer()
-
+    last_hash = hashlib.sha256(f'{last_proof}'.encode()).hexdigest()
     print("Searching for next proof")
-    proof = 0
+    print(f'Last Proof: {last_proof}')
+    proof = 128645742
     #  TODO: Your code here
+    while valid_proof(last_hash, proof) is False:
+        proof +=1111
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -40,7 +43,14 @@ def valid_proof(last_hash, proof):
     """
 
     # TODO: Your code here!
-    pass
+    # We are adding the hash of the last proof to a number/nonce for the new proof
+    # last_hash = hashlib.sha256(f'{last_proof}'.encode()).hexdigest()
+    # curr_hash= hashlib.sha256(f'{proof}'.encode()).hexdigest()
+    # return curr_hash[:6] == last_hash[-6:]
+
+    guess = f'{proof}'.encode()
+    guess_hash = hashlib.sha256(guess).hexdigest()
+    return guess_hash[:6] == last_hash[-6:]
 
 
 if __name__ == '__main__':
