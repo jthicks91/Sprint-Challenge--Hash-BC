@@ -44,6 +44,7 @@ def valid_proof(last_hash, proof):
 
     # TODO: Your code here!
     # We are adding the hash of the last proof to a number/nonce for the new proof
+    
     # last_hash = hashlib.sha256(f'{last_proof}'.encode()).hexdigest()
     # curr_hash= hashlib.sha256(f'{proof}'.encode()).hexdigest()
     # return curr_hash[:6] == last_hash[-6:]

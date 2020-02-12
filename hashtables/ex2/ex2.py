@@ -12,29 +12,28 @@ class Ticket:
 
 def reconstruct_trip(tickets, length):
     hashtable = HashTable(length)
-
-    #
-    #Key : source is starting pooint
-    #Value : Ticket to be used in that source for destination
-
-    #So iterate over tickets and add to them to hashtable 
-
-    for ticket in tickets:
-        hash_table_insert(hashtable, ticket.source, ticket)
-
-    #start from None, and link together until last detination
-    src = "NONE"
     route = [None] * length
-    i = 0;
-    while True:
-        ticket = hash_table_retrieve(hashtable, src)
-        route[i] = ticket.destination
-        i += 1
 
-        if ticket.destination == "NONE":
-            break
+    """
+    YOUR CODE HERE
+    """
+    for ticket in tickets:
+        #insert every ticket
+        hash_table_insert(hashtable, ticket.source, ticket.destination)
+        """
+        The ticket with the none for source will be the first ticket
+        and will start the ticket chain as the first current ticket
+        """
+        if ticket.source == "NONE":
+            route[0] = ticket.destination
+    
+    current_ticket = route[0]
+    ticket_pointer = 1
+    
+    # increment through the linked list and proceed using  current_ticket and ticket_pointer
+    while route[-1] is None:
+        route[ticket_pointer] = hash_table_retrieve(hashtable, current_ticket)
+        current_ticket = route[ticket_pointer]
+        ticket_pointer += 1
 
-        src = ticket.destination
-
-    print (route)
     return route
